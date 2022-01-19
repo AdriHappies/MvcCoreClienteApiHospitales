@@ -1,0 +1,48 @@
+﻿@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#botonhospital").click(function () {
+                var url = "https://apihospitalesazureafg.azurewebsites.net/";
+                var request = "api/hospitales";
+                $.ajax({
+                    url: url + request,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        var html = "";
+                        $.each(data, function (index, hospital) {
+                            html += "<tr>";
+                            html += "<td>" + hospital.nombre + "</td>";
+                            html += "<td>" + hospital.direccion + "</td>";
+                            html += "<td>" + hospital.telefono + "</td>";
+                            html += "<td>" + hospital.camas + "</td>";
+                            html += "</tr>";
+                        });
+                        $("#tablahospital tbody").html(html);
+                    }
+                });
+            });
+        });
+    </script>
+ }
+
+
+<h1>
+    Consumo API Hospitales Cliente
+</h1>
+
+<button type="button" id="botonhospital" class="btn-dark">
+    Cargar Api Hospitales
+</button>
+
+<table id="tablahospital" class="table table-hover">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+            <th>Camas</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
